@@ -42,9 +42,10 @@ public class GoogleIAPApi implements IAPApi {
 	}
 
 	private String loadInputStream(InputStream is) throws IOException {
-		StringWriter sw = new StringWriter();
-		IOUtils.copy(is, sw);
-		return sw.toString();
+		try (StringWriter sw = new StringWriter()) {
+			IOUtils.copy(is, sw);
+			return sw.toString();
+		}
 	}
 
 	@Override
